@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List with Edit Feature</title>
+    <link rel="stylesheet" href="todoSysteles.css" />
+  </head>
+  <body>
+    <form>
+      <div>
+        <input type="text" class="inputlist" placeholder="Add todo" />
+        <button class="btn" type="submit">Add Todo</button>
+      </div>
+      <div class="todoLists"></div>
+    </form>
+
+    <script>
+      const inputlist = document.querySelector(".inputlist");
+      const btn = document.querySelector(".btn");
+      const todoLists = document.querySelector(".todoLists");
+      let todoListValue = [];
+
+      // Store data in localStorage
+      const addtodoinlocalstorage = (todo) => {
+        localStorage.setItem("todoData", JSON.stringify(todo));
+      };
+
+      // Retrieve data from localStorage
+      const getTodoDatafromLs = () => {
+        return JSON.parse(localStorage.getItem("todoData")) || [];
+      };
+
+      // Display existing todos from localStorage
+      const showtodoData = () => {
+        todoLists.innerHTML = ""; // Clear current list before rendering
+        todoListValue = getTodoDatafromLs();
+        todoListValue.forEach((currtodo, index) => {
+          const liElement = document.createElement("li");
+          liElement.innerHTML = `
+            <span>${currtodo}</span>
+            <button class="editBtn" data-index="${index}">Edit</button>
+            <button class="deleteBtn" data-index="${index}">Delete</button>
+          `;
+          todoLists.append(liElement);
+        });
+      };
+
+      // Remove todo from list and localStorage
+      const removetodoList = (index) => {
+        todoListValue = getTodoDatafromLs();
+
+        todoListValue.splice(index, 1); // Remove the item from the array
+        addtodoinlocalstorage(todoListValue);
+        showtodoData(); // Re-render the updated list
+      };
+
+      // Edit todo in the list
+      const editTodoList = (index) => {
+        let todoListValue = getTodoDatafromLs();
+        let currentTodo = todoListValue[index];
+
+        // Prompt the user for new todo text
+        let newTodoText = prompt("Edit your todo:", currentTodo);
+
+        if (newTodoText && newTodoText.trim().length > 0) {
+          todoListValue[index] = newTodoText.trim(); // Update the todo text
+          addtodoinlocalstorage(todoListValue);
+          showtodoData(); // Re-render the updated list
+        }
+      };
+
+      // Add new todo to the list
+      const addTodoList = (e) => {
+        e.preventDefault();
+
+        todoListValue = getTodoDatafromLs();
+        let newtodo = inputlist.value.trim();
+
+        if (newtodo.length !== 0) {
+          todoListValue.push(newtodo); // Add new todo to the array
+          addtodoinlocalstorage(todoListValue); // Save it to localStorage
+
+          showtodoData(); // Re-render the updated list
+          inputlist.value = ""; // Clear the input field after adding
+        }
+      };
+
+      // Initial loading of todo data
+      showtodoData();
+
+      // Add event listeners for adding todos
+      btn.addEventListener("click", (e) => addTodoList(e));
+
+      // Add event delegation for edit and delete buttons
+      todoLists.addEventListener("click", (e) => {
+        if (e.target.classList.contains("deleteBtn")) {
+          let index = e.target.getAttribute("data-index");
+          removetodoList(index);
+        }
+
+        if (e.target.classList.contains("editBtn")) {
+          let index = e.target.getAttribute("data-index");
+          editTodoList(index);
+        }
+      });
+    </script>
+  </body>
+</html>

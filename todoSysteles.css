@@ -1,0 +1,101 @@
+/* Basic reset for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Styling for the form container */
+  form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  /* Input field styling */
+  .inputlist {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  /* Button styling */
+  .btn {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn:hover {
+    background-color: #218838;
+  }
+  
+  /* To-do list container */
+  .todoLists {
+    margin-top: 20px;
+  }
+  
+  /* Individual list items */
+  .todoLists li {
+    list-style-type: none;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+  }
+  
+  /* Span inside the list item (text) */
+  .todoLists li span {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  /* Button styling inside the list (edit and delete) */
+  .editBtn,
+  .deleteBtn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  /* Edit button specific styles */
+  .editBtn {
+    background-color: #ffc107;
+    color: white;
+    margin-right: 5px;
+  }
+  
+  .editBtn:hover {
+    background-color: #e0a800;
+  }
+  
+  /* Delete button specific styles */
+  .deleteBtn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .deleteBtn:hover {
+    background-color: #c82333;
+  }
+  
